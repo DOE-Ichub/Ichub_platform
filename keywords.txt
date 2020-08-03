@@ -1,0 +1,20 @@
+#######################################
+# Data types (KEYWORD1)
+#######################################
+Connec	KEYWORD1
+mqt	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+beginwifi	KEYWORD2
+Writepin	KEYWORD2
+timeoutmqtt 	KEYWORD2
+sesor 		KEYWORD2
+statusid	KEYWORD2
+
+
+#######################################
+# Literals (LITERAL1)
+#######################################
+
