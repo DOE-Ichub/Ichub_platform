@@ -12,7 +12,7 @@
 
 #include "prog.h"
 #include "contro.h"
-#include <PubSubClient.h>
+#include "lib/PubSubClient.h"
 #include "timedns.h"
 WiFiClient espClient;
 PubSubClient client(espClient);
