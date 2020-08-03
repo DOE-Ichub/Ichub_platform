@@ -2,7 +2,6 @@
 #include <Arduino.h>
 #include "api.h"
 #include "beginprog.h"
-
 #include <timer.h>
 Timer timer;
 #define HTTPCLIENT_1_1_COMPATIBLE
@@ -14,7 +13,7 @@ String statusmac(String AccessKey, String mac)
   while (AccessKey.length() == 0)
   {
     delay(500);
-    Serial.print(" vui long nhap key ");
+    
   }
   D = "={\"AccessKey\":\"" + AccessKey + "\",\"Mac\":\"" + mac + "\"}";
   return D;
@@ -51,7 +50,6 @@ int apipaym(String key, String mac)
     if (kiemtraloi2 == HTTP_CODE_OK)
     {
       String laydulieu = http.getString();
-      Serial.println(laydulieu);
       DynamicJsonDocument doc(10000);
       DeserializationError error = deserializeJson(doc, laydulieu);
       if (error)
@@ -62,7 +60,6 @@ int apipaym(String key, String mac)
       int Status = doc["Status"];
       String dataj = doc["Data"];
 
-      Serial.println(dataj);
       DynamicJsonDocument doc2(10000);
       DeserializationError error2 = deserializeJson(doc2, dataj);
       if (error2)
@@ -96,12 +93,8 @@ void Connec::beginwifi(String ssid, String pass, String key)
 {
 
   bool wfstt = wificonf(ssid, pass);
-
-  WiFi.printDiag(Serial);
-
-  Serial.println(WiFi.localIP());
   String mac = macid();
-  //    if(wfstt == true){ delay(2000);ESP.reset();}
+  urlgetmqtt= urlgetmqtt+"/GetInfoServer";
   delay(500);
   while (statusapi != 0)
   {

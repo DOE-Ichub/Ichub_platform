@@ -13,7 +13,7 @@
 #include "prog.h"
 #include "contro.h"
 #include <PubSubClient.h>
-#include "timer.h"
+#include "timedns.h"
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -76,7 +76,6 @@ bool wifimqtt(String use, String pas)
 }
 void callback(char *topic, byte *payload, unsigned int length)
 {
-  Serial.print("core chay mqtt callback   : ");
 
   payload[length] = '\0';
   String me = (char *)payload;

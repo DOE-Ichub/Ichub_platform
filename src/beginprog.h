@@ -11,7 +11,7 @@ String pasemq = "";
 String mqtt_serverstr = "";
 int xacnhanTT = 0;
 String m = "";
-String urlgetmqtt = "http://ichub.khonhalam.com/GetInfoServer";
+String urlgetmqtt = "http://ichub-api.doe.vn";
 #include <EEPROM.h>
 void ngat()
 {
@@ -52,6 +52,7 @@ void setup_wifi()
 bool wificonf(String sd, String pas)
 {
   pinMode(16, OUTPUT);
+   urlgetmqtt= urlgetmqtt+"/GetInfoServer";
   EEPROM.begin(1000);
   int cnt = 0;
   int i = 0;
