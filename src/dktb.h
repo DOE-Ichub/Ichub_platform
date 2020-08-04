@@ -2,8 +2,8 @@
 
 struct
 {
-  int digital[6] = {14, 15, 12, 5, 16, 4};
-  int analog[6] = {14, 15, 12, 5, 16, 4};
+   int digital[6] = {14,15,12,5,4,13};
+   int analog[6] =  {14,15,12,5,4,13};
 
 } outputpin;
 

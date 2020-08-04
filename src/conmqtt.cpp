@@ -2,11 +2,11 @@
 #include "conmqtt.h"
 #include "bien.h"
 #if defined(ESP8266)
-#include <ESP8266WiFi.h>
+#include "lib/esp8266/wifi/ESP8266WiFi.h"
 #include "dktb.h"
 #elif defined(ESP32)
-#include <WiFi.h>
-#include <analogWrite.h>
+#include "lib/wifi32/WiFi.h"
+#include "lib/wifi32/analogWrite.h"
 #include "dktb.h"
 #endif
 

@@ -18,7 +18,7 @@ bool traingcontro(String data, int sensor)
           }
           else if (data[i] == '|')
           {
-               //Serial.println(ds);
+              
                lisdata[st] = ds;
                ds = "";
                st++;

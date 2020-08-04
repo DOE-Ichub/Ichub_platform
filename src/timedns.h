@@ -1,5 +1,10 @@
-#include <WiFiUdp.h>
-#include <NTPClient.h>
+
+#if defined(ESP8266)
+#include "lib/esp8266/wifi/WiFiUdp.h"
+#elif defined(ESP32)
+#include "lib/wifi32/WiFiUdp.h" 
+#endif
+#include "lib/NTPClient.h"
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "vn.pool.ntp.org", 25200, 0);
 
