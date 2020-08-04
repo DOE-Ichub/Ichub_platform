@@ -2,7 +2,7 @@
 #define _ESP32_ANALOG_WRITE_
 
 #include <Arduino.h>
-
+#if defined(ESP32)
 typedef struct analog_write_channel
 {
   int8_t pin;
@@ -19,5 +19,6 @@ void analogWriteResolution(uint8_t resolution);
 void analogWriteResolution(uint8_t pin, uint8_t resolution);
 
 void analogWrite(uint8_t pin, uint32_t value, uint32_t valueMax = 255);
+#endif
 
 #endif
