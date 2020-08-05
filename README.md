@@ -15,7 +15,7 @@ chú thích:
 - Ssid tên wifi.
 - Pass password wifi
 
-3. Output
+3. Output - Input
 - Cfnut GPIO đọc phím nhấn để kích hoạt chế độ smartconfis.
 - Khai báo chân Startus trạng thái wifi kết nối.
 - bool confispin(int ledcf);
