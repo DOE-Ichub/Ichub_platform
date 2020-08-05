@@ -14,6 +14,7 @@ sesor 		KEYWORD2
 statusid	KEYWORD2
 begismartconfis KEYWORD2
 confispin	KEYWORD2
+pinset		KEYWORD2
 #######################################
 # Literals (LITERAL1)
 #######################################

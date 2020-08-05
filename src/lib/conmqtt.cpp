@@ -12,11 +12,35 @@
 
 #include "prog.h"
 #include "contro.h"
+#include "dtaget.h"
 #include "srcv/PubSubClient.h"
 #include "timedns.h"
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+bool mqt::pinset(int vtriout,int pinout,String cl)
+{
+  if(vtriout>6||vtriout<0) 
+  {
+    return false;
+  }
+
+  if(cl=="digital")
+  {
+      outputpin.digital[vtriout-1] = pinout;
+      return true;
+  }
+  else if(cl=="analog")
+  {
+      outputpin.analog[vtriout-1] = pinout;
+      return true;
+  }
+  else
+  {
+    return false;
+  } 
+  
+}
 int mqt::statusid(int idnut)
 {
   for (int i = 0; i < valdata.stbconec; i++)
@@ -60,6 +84,7 @@ bool wifimqtt(String use, String pas)
       variablemqtt.sup2.toCharArray(topsup2, variablemqtt.sup2.length() + 1);
       client.subscribe(topsup2);
       beginntp();
+      Serial.println(" CONNECTED MQTT");
       delay(500);
       return true;
     }
@@ -148,12 +173,12 @@ void mqt::connectToMqtt(String url, String use, String pas)
 
     if (ev == false)
     {
-
+    Serial.println(" NOT CONNECTED MQTT");
       wifisever(url, use, pas);
     }
     else
     {
-      /// Serial.println("Đã đang nhap   mqtt");
+     
     }
   }
   else
@@ -228,7 +253,64 @@ void mqt::sesor(int idnut, String datain)
     wet1 = millis();
   }
 }
+String mqt::sesorget(int idnut)
+{
+  String hctr = "[";
+  ;
+  for (int i = 0; i < valdata.stbconec; i++)
+  {
+    if (valdata.TYPE[i] == 2 && (idnut / 378) == valdata.ID[i].toInt())
+    {
+      String str ;
+      String dta;
+      for (int j = 0; j < valdata.socaidat; j++)
+      {
+        dta = valdata.setingdatacontro[i][j];
+        if (dta.length() == 0)
+          break;
+          
+        if (j > 0)
+        {
+          str += "," ;
+        }
+        str += contro(dta);
+     
+      }
+      hctr += str;
+    }
+  }
+  hctr += "]";
+  return hctr;
+}
+String mqt::dataget(int idnut)
+{
+  String hctr = "[";
+  
+  for (int i = 0; i < valdata.stbconec; i++)
+  {
+    if (valdata.TYPE[i] != 2 && (idnut / 378) == valdata.ID[i].toInt())
+    {
+      String str ;
+      String dta;
+      for (int j = 0; j < valdata.socaidat; j++)
+      {
+        dta = valdata.setingdata[i][j];
 
+        if (dta.length() == 0)
+          break;
+        if (j > 0)
+        {
+          str += "," ;
+        }
+        str += timer(dta);
+        
+      }
+      hctr += str;
+    }
+  }
+  hctr += "]";
+  return hctr;
+}
 void mqt::loopmqt()
 {
   String h;

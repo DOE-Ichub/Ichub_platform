@@ -107,7 +107,7 @@ bool wificonf(String sd,String pas)
 bool wifismartconf()
 {
 
-  urlgetmqtt = urlgetmqtt + "/GetInfoServer";
+   urlgetmqtt = urlgetmqtt + "/GetInfoServer";
   EEPROM.begin(1500);
   int cnt = 0;
   int i = 0;
@@ -122,7 +122,7 @@ bool wifismartconf()
       wf.pass = "";
       wf.stwifi = false;
     }
-    
+     
   WiFi.mode(WIFI_STA);
   if (wf.stwifi)
   {
@@ -152,7 +152,7 @@ bool wifismartconf()
 
   while (!wf.stwifi)
   {
-      Serial.println("smartConfig");
+    Serial.println("smartConfig");
     WiFi.beginSmartConfig();
     while (WiFi.status() != WL_CONNECTED)
     {

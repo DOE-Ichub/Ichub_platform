@@ -20,8 +20,8 @@ String statusmac(String AccessKey, String mac)
 }
 int apipaym(String key, String mac)
 {
+  
   String laydulieu;
-
   if (!http.begin((urlgetmqtt)))
   {
   }
@@ -34,15 +34,16 @@ int apipaym(String key, String mac)
     if (!http.begin((urlgetmqtt)))
     {
     }
+       if (demapi > 3)
+    {
+      return 99;
+    }
     http.addHeader("Content-Type", "application/json");
     kiemtraloi2 = http.POST(statusmac(key, mac));
 
     delay(500);
     demapi++;
-    if (demapi > 3)
-    {
-      return 99;
-    }
+
   }
   if (kiemtraloi2 > 0)
   {
@@ -59,7 +60,6 @@ int apipaym(String key, String mac)
       }
       int Status = doc["Status"];
       String dataj = doc["Data"];
-
       DynamicJsonDocument doc2(10000);
       DeserializationError error2 = deserializeJson(doc2, dataj);
       if (error2)
@@ -105,20 +105,20 @@ bool Connec::beginwifi(String ssid, String pass, String key)
     return false;
   }
   String mac = macid();
-  
   delay(500);
   while (statusapi != 0)
   {
-    statusapi = apipaym(key, mac);
-    delay(1000);
-    if (mun++ > 20)
+     if (mun++ > 3)
     {
-      Serial.println("không thể lấu dự liệu sever");
+      Serial.println("cant not connect sever");
       return false;
     }
+    statusapi = apipaym(key, mac);
+    delay(1000);
+
   }
   c.beginsever(mqtt_serverstr, m, key, mac);
- Serial.println("connected sever");
+  Serial.println("connected sever");
   timer.setTimeout(100);
   timer.setCallback(loopCallback);
   timer.start();
@@ -131,20 +131,20 @@ bool Connec::begismartconfis(String key,int nutcf)
   bool wfstt = wifismartconf();
    WiFi.printDiag(Serial);
   String mac = macid();
-  
   delay(500);
   while (statusapi != 0)
   {
-    statusapi = apipaym(key, mac);
-    delay(1000);
-    if (mun++ > 20)
+     if (mun++ > 3)
     {
       Serial.println("cant not connect sever");
       return false;
     }
+    statusapi = apipaym(key, mac);
+    delay(1000);
+   
   }
   c.beginsever(mqtt_serverstr, m, key, mac);
- Serial.println("connected sever");
+  Serial.println("connected sever");
   timer.setTimeout(100);
   timer.setCallback(loopCallback);
   timer.start();

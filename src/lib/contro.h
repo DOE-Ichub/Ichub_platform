@@ -3,7 +3,7 @@ bool traingcontro(String data, int sensor)
 {
      int datas[5];
      String ds;
-     String lisdata[5];
+     String lisdata[5];  
      int st = 0;
      int datasen = 0;
      int staus = 0;
@@ -36,7 +36,7 @@ bool traingcontro(String data, int sensor)
                Serial.println("con tro vao =");
 
                if (datasen == sensor)
-               {
+               {    
 
                     onoff(staus, lisdata[2].toInt());
 
