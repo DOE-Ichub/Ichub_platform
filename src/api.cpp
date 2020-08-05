@@ -118,6 +118,7 @@ bool Connec::beginwifi(String ssid, String pass, String key)
     }
   }
   c.beginsever(mqtt_serverstr, m, key, mac);
+ Serial.println("connected sever");
   timer.setTimeout(100);
   timer.setCallback(loopCallback);
   timer.start();
@@ -143,6 +144,7 @@ bool Connec::begismartconfis(String key,int nutcf)
     }
   }
   c.beginsever(mqtt_serverstr, m, key, mac);
+ Serial.println("connected sever");
   timer.setTimeout(100);
   timer.setCallback(loopCallback);
   timer.start();
