@@ -105,7 +105,7 @@ bool Connec::beginwifi(String ssid, String pass, String key)
     return false;
   }
   String mac = macid();
-  urlgetmqtt= urlgetmqtt+"/GetInfoServer";
+  
   delay(500);
   while (statusapi != 0)
   {
@@ -130,7 +130,7 @@ bool Connec::begismartconfis(String key,int nutcf)
   bool wfstt = wifismartconf();
    WiFi.printDiag(Serial);
   String mac = macid();
-  urlgetmqtt= urlgetmqtt+"/GetInfoServer";
+  
   delay(500);
   while (statusapi != 0)
   {

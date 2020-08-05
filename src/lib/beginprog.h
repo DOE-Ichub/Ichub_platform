@@ -122,7 +122,7 @@ bool wifismartconf()
       wf.pass = "";
       wf.stwifi = false;
     }
-     Serial.println(wf.stwifi);
+    
   WiFi.mode(WIFI_STA);
   if (wf.stwifi)
   {
@@ -152,7 +152,7 @@ bool wifismartconf()
 
   while (!wf.stwifi)
   {
-
+      Serial.println("smartConfig");
     WiFi.beginSmartConfig();
     while (WiFi.status() != WL_CONNECTED)
     {
