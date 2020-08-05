@@ -7,7 +7,7 @@
 #include <ESP8266WiFi.h>
 #elif defined(ESP32)
 #include <WiFi.h>
-#include "HTTPClient.h"
+#include <HTTPClient.h>
 #endif
 #include "lib/ArduinoJson.h"
 #include "conmqtt.h"
