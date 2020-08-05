@@ -7,13 +7,15 @@
 
 1. Kết nối wifi bằng pass cố định.
 - bool beginwifi(String ssid, String pass, String AccessKey);
+
 2. kết nối bằng smartconfis:
 - bool begismartconfis(String AccessKey,int cfnut);
 chú thích: 
 - AccessKey key trên ứng dụng.
 - Ssid tên wifi.
 - Pass password wifi
-3.Output
+
+3. Output
 - Cfnut GPIO đọc phím nhấn để kích hoạt chế độ smartconfis.
 - Khai báo chân Startus trạng thái wifi kết nối.
 - bool confispin(int ledcf);
