@@ -1,6 +1,6 @@
-
+#include <Arduino.h>
 #include  <WiFiUdp.h>
-#include "lib/NTPClient.h"
+#include "srcv/NTPClient.h"
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "vn.pool.ntp.org", 25200, 0);
 

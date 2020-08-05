@@ -9,15 +9,16 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #endif
-#include "lib/ArduinoJson.h"
-#include "conmqtt.h"
+#include "lib/srcv/ArduinoJson.h"
+#include "lib/conmqtt.h"
 
 class Connec
 {
 public:
-  void beginwifi(String ssid, String pass, String AccessKey);
-  void beginwifi(String AccessKey);
+  bool beginwifi(String ssid, String pass, String AccessKey);
+  bool begismartconfis(String AccessKey,int cfnut);
   void timeoutmqtt();
+  bool confispin(int ledcf);
 
 private:
   int statusapi = 1;

@@ -12,8 +12,8 @@ Writepin	KEYWORD2
 timeoutmqtt 	KEYWORD2
 sesor 		KEYWORD2
 statusid	KEYWORD2
-
-
+begismartconfis KEYWORD2
+confispin	KEYWORD2
 #######################################
 # Literals (LITERAL1)
 #######################################

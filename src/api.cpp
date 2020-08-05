@@ -1,8 +1,8 @@
 
 #include <Arduino.h>
 #include "api.h"
-#include "beginprog.h"
-#include "lib/timer.h"
+#include "lib/beginprog.h"
+#include "lib/srcv/timer.h"
 Timer timer;
 #define HTTPCLIENT_1_1_COMPATIBLE
 HTTPClient http;
@@ -89,10 +89,21 @@ void loopCallback()
   ngat();
   timer.start();
 }
-void Connec::beginwifi(String ssid, String pass, String key)
+bool Connec::confispin(int pinled)
+{
+ 
+  cf.cfled = pinled;
+  pinMode(cf.cfled, OUTPUT);
+  return true;
+}
+bool Connec::beginwifi(String ssid, String pass, String key)
 {
 
-  bool wfstt = wificonf(ssid, pass);
+  //bool wfstt = wificonf(ssid, pass);
+  if(wificonf(ssid, pass)==false) 
+  {
+    return false;
+  }
   String mac = macid();
   urlgetmqtt= urlgetmqtt+"/GetInfoServer";
   delay(500);
@@ -102,14 +113,40 @@ void Connec::beginwifi(String ssid, String pass, String key)
     delay(1000);
     if (mun++ > 20)
     {
-      while (1)
-        ;
+      Serial.println("không thể lấu dự liệu sever");
+      return false;
     }
   }
   c.beginsever(mqtt_serverstr, m, key, mac);
   timer.setTimeout(100);
   timer.setCallback(loopCallback);
   timer.start();
+}
+bool Connec::begismartconfis(String key,int nutcf)
+{
+    cf.cfst = true;
+    cf.cfnut = nutcf;
+    pinMode(cf.cfnut, INPUT);
+  bool wfstt = wifismartconf();
+   WiFi.printDiag(Serial);
+  String mac = macid();
+  urlgetmqtt= urlgetmqtt+"/GetInfoServer";
+  delay(500);
+  while (statusapi != 0)
+  {
+    statusapi = apipaym(key, mac);
+    delay(1000);
+    if (mun++ > 20)
+    {
+      Serial.println("cant not connect sever");
+      return false;
+    }
+  }
+  c.beginsever(mqtt_serverstr, m, key, mac);
+  timer.setTimeout(100);
+  timer.setCallback(loopCallback);
+  timer.start();
+  return true;
 }
 void Connec::timeoutmqtt()
 {

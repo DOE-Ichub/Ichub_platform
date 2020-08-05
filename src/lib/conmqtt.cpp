@@ -6,13 +6,13 @@
 #include "dktb.h"
 #elif defined(ESP32)
 #include <WiFi.h>
-#include "lib/analogWrite.h"
+#include "srcv/analogWrite.h"
 #include "dktb.h"
 #endif
 
 #include "prog.h"
 #include "contro.h"
-#include "lib/PubSubClient.h"
+#include "srcv/PubSubClient.h"
 #include "timedns.h"
 WiFiClient espClient;
 PubSubClient client(espClient);
