@@ -16,9 +16,9 @@ class Connec
 {
 public:
   bool beginwifi(String ssid, String pass, String AccessKey);
-  bool begismartconfis(String AccessKey,int cfnut);
+  bool beginsmartconfig(String AccessKey,int cfnut);
   void timeoutmqtt();
-  bool confispin(int ledcf);
+  bool configpin(int ledcf);
 
 private:
   int statusapi = 1;

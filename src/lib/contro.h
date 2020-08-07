@@ -33,7 +33,7 @@ bool traingcontro(String data, int sensor)
 
           if (lisdata[1] == "=")
           {
-               Serial.println("con tro vao =");
+               
 
                if (datasen == sensor)
                {    

@@ -68,13 +68,16 @@ bool wifimqtt(String use, String pas)
   if (!client.connected())
   {
     delay(100);
-
+    Serial.println("use MQTT");
+  
     char bufid[14] = "";
     variablemqtt.clientId.toCharArray(bufid, variablemqtt.clientId.length() + 1);
     char useremqtt[30] = "";
     use.toCharArray(useremqtt, use.length() + 1);
     char pasemqtt[40] = "";
     pas.toCharArray(pasemqtt, pas.length() + 1);
+      //Serial.println(useremqtt);
+     Serial.println("Connecting MQTT");
     if (client.connect(bufid, useremqtt, pasemqtt))
     {
       char topsup[40] = "";
@@ -157,13 +160,16 @@ void beginwifi()
 {
   String qsid = WiFi.SSID();
   String qpass = WiFi.psk();
+   Serial.println(WiFi.SSID());
+   Serial.println(qsid);
+    Serial.println(qpass);
   char use[40] = "";
   qsid.toCharArray(use, qsid.length() + 1);
   char pas[40] = "";
   qpass.toCharArray(pas, qpass.length() + 1);
   WiFi.begin(use, pas);
 }
-void mqt::connectToMqtt(String url, String use, String pas)
+bool mqt::connectToMqtt(String url, String use, String pas)
 {
 
   if (WiFi.status() == WL_CONNECTED)
@@ -183,9 +189,7 @@ void mqt::connectToMqtt(String url, String use, String pas)
   }
   else
   {
-
-    delay(500);
-    beginwifi();
+       
   }
 }
 void sensoracstion(int data, int iddv)

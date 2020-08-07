@@ -1,7 +1,15 @@
 
 
+void set(int pinpwm)
+{
 
-
+#if defined(ESP32)
+      Serial.println(" CONNECTED MQTT");
+      analogWriteResolution (pinpwm, 12 );
+#endif
+ 
+}
+  
 void beginpinrelay()
 {
   for (int i = 0; i < valdata.stbconec; i++)
@@ -168,13 +176,13 @@ void onoffpinpwm(int vt, int stt)
   break;
   case 2:
   {
-    Serial.println(" onoff timer : ");
+    
     analogWrite(outputpin.analog[1], stt);
   }
   break;
   case 3:
   {
-    Serial.println(" onoff timer : ");
+    
     analogWrite(outputpin.analog[2], stt);
   }
   break;
@@ -228,7 +236,7 @@ bool deriver(int dataof, int i, int idnut)
 
     else if (valdata.TYPE[i] == 3)
     {
-      dimerpw = (dataof * 10.22);
+      dimerpw = (dataof * outputpin.valpwm);
       String vt = valdata.VT[i];
       for (int j = 1; j <= valdata.sloutput; j++)
       {

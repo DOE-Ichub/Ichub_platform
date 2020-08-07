@@ -6,7 +6,7 @@
 class mqt
 {
 public:
-  void connectToMqtt(String url, String use, String pas);
+  bool connectToMqtt(String url, String use, String pas);
   void sesor(int id, String datain);
   void loopmqt();
   void beginsever(String url, String m, String key, String mac);

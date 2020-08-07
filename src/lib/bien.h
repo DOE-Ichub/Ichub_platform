@@ -1,3 +1,20 @@
+#if ESP8266
+struct
+{
+   int digital[6] = {14,15,12,5,4,13};
+   int analog[6] =  {14,15,12,5,4,13};
+   float valpwm = 10.22;
+
+} outputpin;
+#elif defined(ESP32)
+struct
+{
+   int digital[6] = {14,15,18,5,4,13};
+   int analog[6] =  {14,15,18,5,4,13};
+   float valpwm = 2.5;
+
+} outputpin;
+#endif
 unsigned long wet, wet1, wet2 = 0;
 int rate = 5000;
 int phutwet = 0;
@@ -27,9 +44,3 @@ struct
   int socaidat = 10;
   int sloutput = 6;
 } valdata;
-struct
-{
-   int digital[6] = {14,15,12,5,4,13};
-   int analog[6] =  {14,15,12,5,4,13};
-
-} outputpin;

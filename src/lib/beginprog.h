@@ -1,6 +1,7 @@
 struct
 {
-  bool cfst;
+  bool cfst = false;
+  bool cfstled = false;
   int cfnut = 13;
   int cfled = 16;
 }cf;
@@ -18,6 +19,13 @@ int xacnhanTT = 0;
 String m = "";
 String urlgetmqtt = "http://ichub-api.doe.vn";
 #include <EEPROM.h>
+void setup_wifi()
+{
+  String o = "";
+  delay(10);
+
+  WiFi.begin((wf.ssd).c_str(), (wf.pass).c_str());
+}
 void ngat()
 {
   if (cf.cfst == true)
@@ -48,15 +56,21 @@ void ngat()
 
     pp = 0;
   }
+   if (WiFi.status() != WL_CONNECTED)
+   {
+     digitalWrite(cf.cfled, LOW);
+     delay(50);
+      digitalWrite(cf.cfled, HIGH);
+      setup_wifi();
+      //Serial.println(" WiFi CONNECTING");
+          
+
+     
+   }
+  
 }
 
-void setup_wifi()
-{
-  String o = "";
-  delay(10);
 
-  WiFi.begin((wf.ssd).c_str(), (wf.pass).c_str());
-}
 bool wificonf(String sd,String pas)
 {
 

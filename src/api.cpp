@@ -60,6 +60,7 @@ int apipaym(String key, String mac)
       }
       int Status = doc["Status"];
       String dataj = doc["Data"];
+      // Serial.println(dataj);
       DynamicJsonDocument doc2(10000);
       DeserializationError error2 = deserializeJson(doc2, dataj);
       if (error2)
@@ -89,7 +90,7 @@ void loopCallback()
   ngat();
   timer.start();
 }
-bool Connec::confispin(int pinled)
+bool Connec::configpin(int pinled)
 {
  
   cf.cfled = pinled;
@@ -123,7 +124,7 @@ bool Connec::beginwifi(String ssid, String pass, String key)
   timer.setCallback(loopCallback);
   timer.start();
 }
-bool Connec::begismartconfis(String key,int nutcf)
+bool Connec::beginsmartconfig(String key,int nutcf)
 {
     cf.cfst = true;
     cf.cfnut = nutcf;
