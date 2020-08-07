@@ -31,4 +31,4 @@ chú thích:
 - sesor(int id, String datain);
 - id : id nút được tạo trên ứng dụng.
 - datain : dự liệu sensor truyền vào.
->>>>>>> 79dfd1f81946660988b025b7036310544f03faab
+
