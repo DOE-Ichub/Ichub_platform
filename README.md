@@ -31,4 +31,4 @@ chú thích:
 - sesor(int id, String datain);
 - id : id nút được tạo trên ứng dụng.
 - datain : dự liệu sensor truyền vào.
-
+<img src="https://github.com/DOE-Ichub/ICHUB_IOT/blob/master/examples/5c3f395196a56afb33b4.png" width="1280" height="720" />
