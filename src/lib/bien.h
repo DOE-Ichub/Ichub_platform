@@ -16,7 +16,7 @@ struct
 } outputpin;
 #endif
 unsigned long wet, wet1, wet2 = 0;
-int rate = 5000;
+int rate = 2000;
 int phutwet = 0;
 String ramsen = "";
 struct

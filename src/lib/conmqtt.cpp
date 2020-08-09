@@ -206,9 +206,11 @@ void sensoracstion(int data, int iddv)
       if (hctr.length() == 0)
         break;
       ret = traingcontro(hctr, data);
+       Serial.println(hctr);
     }
     if (ret == true)
     {
+      Serial.println("hctr");
       sent(variablemqtt.pus1, senstr());
     }
   }
@@ -236,17 +238,24 @@ bool mqt::Writepin(int id, int stt)
 }
 void mqt::sesor(int idnut, String datain)
 {
+   Serial.print("datain   :"  );
+  Serial.println(datain);
   if (((unsigned long)(millis() - wet1)) > rate)
 
   {
     for (int i = 0; i < valdata.stbconec; i++)
     {
-      if (valdata.TYPE[i] == 2 && (idnut / 378) == valdata.ID[i].toInt())
+       Serial.println(valdata.ID[i].toInt());
+       Serial.println(idnut/378);
+
+      if (valdata.TYPE[i] == 2 && (idnut/378) == valdata.ID[i].toInt())
       {
         valdata.datastaus[i] = datain.toInt();
         delay(2);
         rate = valdata.timereading[i] / 2;
-        sensoracstion(valdata.datastaus[i], i);
+        Serial.print("valdata.datastaus[i]  :");
+         Serial.println( valdata.datastaus[i]);
+        sensoracstion(valdata.datastaus[i],i);
       }
     }
     if (ramsen != senstr())

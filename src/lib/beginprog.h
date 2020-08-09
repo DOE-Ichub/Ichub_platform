@@ -56,7 +56,7 @@ void ngat()
 
     pp = 0;
   }
-   if (WiFi.status() != WL_CONNECTED)
+   if (WiFi.status() != WL_CONNECTED&&wf.stwifi == true)
    {
      digitalWrite(cf.cfled, LOW);
      delay(50);
