@@ -9,8 +9,9 @@
 - bool beginwifi(String ssid, String pass, String AccessKey);
 
 2. kết nối bằng smartconfis:
-- bool begismartconfis(String AccessKey,int cfnut);
-chú thích: 
+- bool begismartconfis(String AccessKey,int cfnut).
+
+ **chú thích:
 - AccessKey key trên ứng dụng.
 - Ssid tên wifi.
 - Pass password wifi
