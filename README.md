@@ -11,7 +11,7 @@
 2. kết nối bằng smartconfis:
 - bool begismartconfis(String AccessKey,int cfnut).
 
- **chú thích:
+ **chú thích**:
 - AccessKey key trên ứng dụng.
 - Ssid tên wifi.
 - Pass password wifi
