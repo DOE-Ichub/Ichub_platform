@@ -1,15 +1,8 @@
 # ICHUB PLATFORM
-<<<<<<< HEAD
-- Chúng tôi cung cấp nền tảng kết nối truyền thông đám mây miễn phí cho các thiết bị IoT nhầm mục đích nghiên cứu.
-- Document : http://ichub.doe.vn/huong-dan
-- App ios: https://apps.apple.com/us/app/id1525228000
-- App android: https://play.google.com/store/apps/details?id=com.ichub&hl=vi
-=======
 - Chúng tôi cung cấp nền tảng kết nối truyền thông đám mây miễn phí cho các thiết bị IoT nhầm mục đích nghiên cứu, học tập.
-- Dowload
- *[Document](http://ichub.doe.vn/huong-dan)
- *[App Store](https://apps.apple.com/us/app/id1525228000)
- *[Google Play](https://play.google.com/store/apps/details?id=com.ichub&hl=vi)
+- Dowload: [Document](http://ichub.doe.vn/huong-dan)
+ [App Store](https://apps.apple.com/us/app/id1525228000)
+ [Google Play](https://play.google.com/store/apps/details?id=com.ichub&hl=vi)
 # SỬ DỤNG
 
 1. Kết nối wifi bằng pass cố định.
@@ -38,4 +31,6 @@ chú thích:
 - sesor(int id, String datain);
 - id : id nút được tạo trên ứng dụng.
 - datain : dự liệu sensor truyền vào.
->>>>>>> 79dfd1f81946660988b025b7036310544f03faab
+# SƠ ĐỒ CHÂN OUTPUT
+<img src="https://github.com/DOE-Ichub/ICHUB_IOT/blob/master/examples/Untitled.png" width="800" height="400" />
+<img src="https://github.com/DOE-Ichub/ICHUB_IOT/blob/master/examples/5c3f395196a56afb33b4.png" width="800" height="400" />
