@@ -14,9 +14,10 @@ chú thích:
 - AccessKey key trên ứng dụng.
 - Ssid tên wifi.
 - Pass password wifi
+- Cfnut GPIO đọc phím nhấn để kích hoạt chế độ smartconfis.
 
 3. Output - Input
-- Cfnut GPIO đọc phím nhấn để kích hoạt chế độ smartconfis.
+
 - Khai báo chân Startus trạng thái wifi kết nối.
 - bool confispin(int ledcf);
 - ledcf : GPIO kết nối led báo trạng thái.
