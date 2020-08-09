@@ -12,10 +12,10 @@
 - bool begismartconfis(String AccessKey,int cfnut).
 
  **chú thích**:
-- AccessKey key trên ứng dụng.
-- Ssid tên wifi.
-- Pass password wifi
-- Cfnut GPIO đọc phím nhấn để kích hoạt chế độ smartconfis.
+- AccessKey: key trên ứng dụng.
+- Ssid: tên wifi.
+- Pass: password wifi
+- Cfnut: GPIO đọc phím nhấn để kích hoạt chế độ smartconfis.
 
 3. Output - Input
 
@@ -25,8 +25,7 @@
 - Lấy trạng thái nút :
 - int statusid(int id);
 - id : id nút được tạo trên ứng dụng.
-- Điều khiển nút.
-  bool Writepin(int id, int stt);
+- Điều khiển nút: bool Writepin(int id, int stt);
 - id : id nút được tạo trên ứng dụng.
 - stt : onoff digital (0 -1 ), PWM (0-1024). 
 - Gửi dữ liệu sensor lên app hiển thị.
