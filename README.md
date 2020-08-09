@@ -1,8 +1,9 @@
 # ICHUB PLATFORM
 - Chúng tôi cung cấp nền tảng kết nối truyền thông đám mây miễn phí cho các thiết bị IoT nhầm mục đích nghiên cứu, học tập.
 - Dowload: [Document](http://ichub.doe.vn/huong-dan)
- [App Store](https://apps.apple.com/us/app/id1525228000)
- [Google Play](https://play.google.com/store/apps/details?id=com.ichub&hl=vi)
+ [<img src="https://svgsilh.com/svg/1873373.svg" width="18" height="18" /> Google Play](http://ichub.doe.vn/huong-dan) | 
+ [<img src="https://cdn.rawgit.com/simple-icons/simple-icons/develop/icons/googleplay.svg" width="18" height="18" /> Google Play](https://play.google.com/store/apps/details?id=com.ichub&hl=vi) | 
+[<img src="https://cdn.rawgit.com/simple-icons/simple-icons/develop/icons/apple.svg" width="18" height="18" /> App Store](https://apps.apple.com/us/app/id1525228000)
 # SỬ DỤNG
 
 1. Kết nối wifi bằng pass cố định.
