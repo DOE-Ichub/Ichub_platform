@@ -68,11 +68,11 @@ Sử dụng mã tương tự ở trên ngoài ra còn khai báo chân xuất tí
  
 *  `bool Writepin(int id, int stt)` - Điều khiển trạng thái nút onoff digital (0 -1 ), PWM (0-1024). 
 
-* `bool sesor(int id, String datain)` - Gửi dữ liệu sensor lên app hiển thị
+* `bool sensorsent(int id, String datain)` - Gửi dữ liệu sensor lên app hiển thị
 
 * `String dataget(int idnut)` - Lấy dự liệu setting nút.
 
-* `String sesorget(int idnut)` - Lấy dữ liệu setting sensor
+* `String sensorget(int idnut)` - Lấy dữ liệu setting sensor
 * `bool timeoutmqtt()` - chạy mqtt.
 
 # SƠ ĐỒ CHÂN OUTPUT

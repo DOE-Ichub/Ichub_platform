@@ -276,8 +276,7 @@ bool anhxa(String data, int dataof)
       st++;
     }
   }
-  delay(200);
-
+  delay(10);
   if (datas[3] == 1)
   {
 

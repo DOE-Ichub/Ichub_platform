@@ -16,7 +16,7 @@ struct
 } outputpin;
 #endif
 unsigned long wet, wet1, wet2 = 0;
-int rate = 2000;
+int rate = 100;
 int phutwet = 0;
 String ramsen = "";
 struct
@@ -34,11 +34,13 @@ struct
   String VT[10];
   int TYPE[10];
   String UNIT[10];
-  int datastaus[10] = {0, 0, 0, 0, 0};
+  int datastaus[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+  int datastausVal[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+  int datasid[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
   int stbconec = 0;
   int timereading[10] = {0, 0, 0, 0, 0};
   //String stringdata[10];
-  String setingdata[10][10]; //////"[{{"giay|on-off|lap_lai|kich_hoat"}}
+  String setingdata[10][10]; 
   String setingdataanhxa[10][10];
   String setingdatacontro[10][10];
   int socaidat = 10;

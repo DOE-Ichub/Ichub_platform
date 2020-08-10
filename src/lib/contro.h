@@ -1,5 +1,24 @@
 
-bool traingcontro(String data, int sensor)
+
+void dbstatus()
+{
+       for (int i = 0; i < valdata.stbconec; i++)
+    {
+      valdata.datastausVal[i] = valdata.datastaus[i];
+    }
+}
+void updatestaus(int datain, int id)
+{
+       for (int i = 0; i < valdata.stbconec; i++)
+    {
+     if (id== valdata.ID[i].toInt())
+      {
+                    valdata.datastausVal[i] = datain;
+                   
+      }
+    }
+}
+bool traingcontro(String data, int sensor,int iddv)
 {
      int datas[5];
      String ds;
@@ -26,20 +45,19 @@ bool traingcontro(String data, int sensor)
      }
      datasen = lisdata[0].toInt();
      staus = lisdata[3].toInt();
-     delay(200);
+     delay(2);
 
      if (lisdata[4] == "1")
      {
-
+          Serial.println(lisdata[1]);
           if (lisdata[1] == "=")
           {
                
 
                if (datasen == sensor)
                {    
-
-                    onoff(staus, lisdata[2].toInt());
-
+                    //Serial.println(lisdata[2].toInt());
+                    updatestaus(staus, lisdata[2].toInt());
                     return true;
                }
           }
@@ -49,8 +67,8 @@ bool traingcontro(String data, int sensor)
 
                if (sensor > datasen)
                {
-
-                    onoff(staus, lisdata[2].toInt());
+                    //Serial.println(lisdata[2].toInt());
+                    updatestaus(staus, lisdata[2].toInt());
 
                     return true;
                }
@@ -61,9 +79,8 @@ bool traingcontro(String data, int sensor)
 
                if (sensor < datasen)
                {
-
-                    onoff(staus, lisdata[2].toInt());
-
+                    //Serial.println(lisdata[2].toInt());
+                   updatestaus(staus, lisdata[2].toInt());
                     return true;
                }
           }

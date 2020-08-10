@@ -18,28 +18,27 @@
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-bool mqt::pinset(int vtriout,int pinout,String cl)
+bool mqt::pinset(int vtriout, int pinout, String cl)
 {
-  if(vtriout>6||vtriout<0) 
+  if (vtriout > 6 || vtriout < 0)
   {
     return false;
   }
 
-  if(cl=="digital")
+  if (cl == "digital")
   {
-      outputpin.digital[vtriout-1] = pinout;
-      return true;
+    outputpin.digital[vtriout - 1] = pinout;
+    return true;
   }
-  else if(cl=="analog")
+  else if (cl == "analog")
   {
-      outputpin.analog[vtriout-1] = pinout;
-      return true;
+    outputpin.analog[vtriout - 1] = pinout;
+    return true;
   }
   else
   {
     return false;
-  } 
-  
+  }
 }
 int mqt::statusid(int idnut)
 {
@@ -69,15 +68,15 @@ bool wifimqtt(String use, String pas)
   {
     delay(100);
     Serial.println("use MQTT");
-  
+
     char bufid[14] = "";
     variablemqtt.clientId.toCharArray(bufid, variablemqtt.clientId.length() + 1);
     char useremqtt[30] = "";
     use.toCharArray(useremqtt, use.length() + 1);
     char pasemqtt[40] = "";
     pas.toCharArray(pasemqtt, pas.length() + 1);
-      //Serial.println(useremqtt);
-     Serial.println("Connecting MQTT");
+    //Serial.println(useremqtt);
+    Serial.println("Connecting MQTT");
     if (client.connect(bufid, useremqtt, pasemqtt))
     {
       char topsup[40] = "";
@@ -114,7 +113,7 @@ void callback(char *topic, byte *payload, unsigned int length)
   char topsup[40] = "";
   variablemqtt.sup2.toCharArray(topsup, variablemqtt.sup2.length() + 1);
   Serial.println(topic);
-    Serial.println(me);
+  Serial.println(me);
   if (strcmp(topic, top) == 0)
   {
     String str = datasen(me);
@@ -161,9 +160,9 @@ void beginwifi()
 {
   String qsid = WiFi.SSID();
   String qpass = WiFi.psk();
-   Serial.println(WiFi.SSID());
-   Serial.println(qsid);
-    Serial.println(qpass);
+  Serial.println(WiFi.SSID());
+  Serial.println(qsid);
+  Serial.println(qpass);
   char use[40] = "";
   qsid.toCharArray(use, qsid.length() + 1);
   char pas[40] = "";
@@ -180,17 +179,15 @@ bool mqt::connectToMqtt(String url, String use, String pas)
 
     if (ev == false)
     {
-    Serial.println(" NOT CONNECTED MQTT");
+      Serial.println(" NOT CONNECTED MQTT");
       wifisever(url, use, pas);
     }
     else
     {
-     
     }
   }
   else
   {
-       
   }
 }
 void sensoracstion(int data, int iddv)
@@ -201,18 +198,21 @@ void sensoracstion(int data, int iddv)
 
   if (valdata.TYPE[iddv] == 2)
   {
+    dbstatus();
     for (int j = 0; j < valdata.socaidat; j++)
     {
       hctr = valdata.setingdatacontro[iddv][j];
       if (hctr.length() == 0)
         break;
-      ret = traingcontro(hctr, data);
-      /// Serial.println(hctr);
+      ret = traingcontro(hctr, data, iddv);
     }
-    if (ret == true)
+    for (int i = 0; i < valdata.stbconec; i++)
     {
-      
-      sent(variablemqtt.pus1, senstr());
+      if (valdata.datastaus[i] != valdata.datastausVal[i] && valdata.TYPE[i] != 2)
+      {
+        valdata.datastaus[i] = valdata.datastausVal[i];
+        onoff(valdata.datastausVal[i], valdata.ID[i].toInt());
+      }
     }
   }
 }
@@ -237,27 +237,27 @@ bool mqt::Writepin(int id, int stt)
   }
   return kt;
 }
-void mqt::sesor(int idnut, String datain)
+void mqt::sensorsent(int idnut, String datain)
 {
-  // Serial.print("datain   :"  );
-  //Serial.println(datain);
+
+  bool ret = false;
   if (((unsigned long)(millis() - wet1)) > rate)
 
   {
     for (int i = 0; i < valdata.stbconec; i++)
     {
-       
-      // Serial.println(valdata.ID[i].toInt());
-      // Serial.println(idnut/378);
 
-      if (valdata.TYPE[i] == 2 && (idnut/378) == valdata.ID[i].toInt())
+      if (valdata.TYPE[i] == 2 && (idnut / 378) == valdata.ID[i].toInt())
       {
         valdata.datastaus[i] = datain.toInt();
-        delay(2);
-        rate = valdata.timereading[i] / 2;
+       
+        if (valdata.timereading[i] != 0)
+        {
+          rate = valdata.timereading[i];
+        }
         //Serial.print("valdata.datastaus[i]  :");
-        // Serial.println( valdata.datastaus[i]);
-        sensoracstion(valdata.datastaus[i],i);
+        // Serial.println(valdata.timereading[i]);
+        sensoracstion(valdata.datastaus[i], i);
       }
     }
     if (ramsen != senstr())
@@ -268,7 +268,7 @@ void mqt::sesor(int idnut, String datain)
     wet1 = millis();
   }
 }
-String mqt::sesorget(int idnut)
+String mqt::sensorget(int idnut)
 {
   String hctr = "[";
   ;
@@ -276,20 +276,19 @@ String mqt::sesorget(int idnut)
   {
     if (valdata.TYPE[i] == 2 && (idnut / 378) == valdata.ID[i].toInt())
     {
-      String str ;
+      String str;
       String dta;
       for (int j = 0; j < valdata.socaidat; j++)
       {
         dta = valdata.setingdatacontro[i][j];
         if (dta.length() == 0)
           break;
-          
+
         if (j > 0)
         {
-          str += "," ;
+          str += ",";
         }
         str += contro(dta);
-     
       }
       hctr += str;
     }
@@ -300,12 +299,12 @@ String mqt::sesorget(int idnut)
 String mqt::dataget(int idnut)
 {
   String hctr = "[";
-  
+
   for (int i = 0; i < valdata.stbconec; i++)
   {
     if (valdata.TYPE[i] != 2 && (idnut / 378) == valdata.ID[i].toInt())
     {
-      String str ;
+      String str;
       String dta;
       for (int j = 0; j < valdata.socaidat; j++)
       {
@@ -315,10 +314,9 @@ String mqt::dataget(int idnut)
           break;
         if (j > 0)
         {
-          str += "," ;
+          str += ",";
         }
         str += timer(dta);
-        
       }
       hctr += str;
     }
@@ -338,32 +336,34 @@ void mqt::loopmqt()
       idnut = valdata.ID[i].toInt();
       if (valdata.TYPE[i] == 1)
       {
+        bool ret = false;
         for (int j = 0; j < valdata.socaidat; j++)
         {
-           
+
           h = valdata.setingdata[i][j];
           if (h.length() == 0)
             break;
-          bool ret = timer(h, idnut, i, j);
-           // Serial.println(h);
-          if (ret == true)
-          {
-            sent(variablemqtt.pus1, senstr());
-          }
+          ret = timer(h, idnut, i, j);
+          // Serial.println(h);
+        }
+        if (ret == true)
+        {
+          sent(variablemqtt.pus1, senstr());
         }
       }
       if (valdata.TYPE[i] == 3)
       {
+        bool ret = false;
         for (int j = 0; j < valdata.socaidat; j++)
         {
           h = valdata.setingdata[i][j];
           if (h.length() == 0)
             break;
           bool ret = timer(h, idnut, i, j);
-          if (ret == true)
-          {
-            sent(variablemqtt.pus1, senstr());
-          }
+        }
+        if (ret == true)
+        {
+          sent(variablemqtt.pus1, senstr());
         }
       }
     }
