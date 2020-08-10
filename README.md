@@ -10,7 +10,7 @@
  [<img src="https://svgsilh.com/svg/1873373.svg" width="18" height="18" /> Website](http://ichub.doe.vn/huong-dan) | 
  [<img src="https://cdn.rawgit.com/simple-icons/simple-icons/develop/icons/googleplay.svg" width="18" height="18" /> Google Play](https://play.google.com/store/apps/details?id=com.ichub&hl=vi) | 
 [<img src="https://cdn.rawgit.com/simple-icons/simple-icons/develop/icons/apple.svg" width="18" height="18" /> App Store](https://apps.apple.com/us/app/id1525228000)
-# SỬ DỤNG
+### SỬ DỤNG
 ```cpp
 #include <api.h>
 
@@ -52,7 +52,7 @@ void setup()
 void loop()
 {
   b.timeoutmqtt();
- }
+}
 ```
 Sử dụng mã tương tự ở trên ngoài ra còn khai báo chân xuất tín hiệu Led báo tạng thái kết nối 
 * `bool confispin(int ledcf)` - Khai báo chân GPIO 16 làm Pinout Startus trạng thái wifi kết nối  `b.configpin(16)`
