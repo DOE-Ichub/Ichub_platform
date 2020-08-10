@@ -53,7 +53,7 @@ void loop()
 {
   b.timeoutmqtt();
  }
-````
+```
 Sử dụng mã tương tự ở trên ngoài ra còn khai báo chân xuất tín hiệu Led báo tạng thái kết nối 
 * `bool confispin(int ledcf)` - Khai báo chân GPIO 16 làm Pinout Startus trạng thái wifi kết nối  `b.configpin(16)`
 * `b.beginsmartconfig(AccessKey,0)` - Khai báo chân GPIO 0 làm Pin input đọc tín thiệu nút nhấn kéo lên mức cao.
