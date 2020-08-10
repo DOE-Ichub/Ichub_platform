@@ -30,10 +30,10 @@ void loop()
 }
 ```
 Sử dụng mã tương tự ở trên, bạn có thể nhập `ssid`  tên wifi `password` password wifi . 
-* `AccessKey` = "HXGH21"
+* `AccessKey` = **HXGH21**
 <img src="https://github.com/DOE-Ichub/ICHUB_IOT/blob/master/src/prin/accessskey.png" width="300" height="200" />
 --------------------------------------------
-```
+```cpp
 #include <api.h>
 Connec b;
 mqt s;
@@ -56,9 +56,10 @@ void loop()
 ````
 Sử dụng mã tương tự ở trên ngoài ra còn khai báo chân xuất tín hiệu Led báo tạng thái kết nối 
 * `bool confispin(int ledcf)` - Khai báo chân GPIO 16 làm Pinout Startus trạng thái wifi kết nối  `b.configpin(16)`
-* `b.beginsmartconfig(AccessKey,0)` - * `AccessKey` = "HXGH21"
+* `b.beginsmartconfig(AccessKey,0)` - Khai báo chân GPIO 0 làm Pin input đọc tín thiệu nút nhấn kéo lên mức cao.
+* `AccessKey` = **HXGH21**
  <img src="https://github.com/DOE-Ichub/ICHUB_IOT/blob/master/src/prin/accessskey.png" width="300" height="200" />
-   Khai báo chân GPIO 0 làm Pin input đọc tín thiệu nút nhấn kéo lên mức cao.
+   
 
 ### `Connec` class
 * `bool beginwifi(String ssid, String pass, String AccessKey)` - Kết nối wifi bằng pass cố định 
