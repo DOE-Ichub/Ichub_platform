@@ -3,12 +3,12 @@ Connec b;
 mqt s;
 String ssid = "";
 String password = "";
-String AccessKey = "HXGH21"; // lấy key trên app ichub
+String AccessKey = "xxxx"; 
 void setup()
 {
   Serial.begin(115200);
-   b.confispin(21);
-  b.beginsmartconfig(AccessKey,19);
+   b.configpin(16);
+  b.beginsmartconfig(AccessKey,0);
  
   
 
