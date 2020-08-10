@@ -37,8 +37,6 @@ Sử dụng mã tương tự ở trên, bạn có thể nhập `String ssid =` t
 #include <api.h>
 Connec b;
 mqt s;
-String ssid = "";
-String password = "";
 String AccessKey = "HXGH21"; // lấy key trên app ichub
 void setup()
 {
