@@ -29,7 +29,7 @@ void loop()
   b.timeoutmqtt();
 }
 ```
-Sử dụng mã tương tự ở trên, bạn có thể nhập `ssid`  tên wifi `password` password wifi . 
+Sử dụng mã tương tự ở trên, bạn có thể nhập `String ssid =` tên wifi `String password =` password wifi . 
 * `AccessKey` = HXGH21
 <img src="https://github.com/DOE-Ichub/ICHUB_IOT/blob/master/src/prin/accessskey.png" width="300" height="200" />
 
