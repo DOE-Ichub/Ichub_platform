@@ -113,7 +113,26 @@ bool setingtimer(String data)
         }
         String DT6 = doc2[j]["t"];
         if (DT6 == "null")
-          return true;
+        {      
+          if (DT6[0] == 't' || DT6[0] == 'd')
+          { 
+            valdata.setingdata[i][ timerdem] ="";
+             timerdem++;
+          } 
+          else if(DT6[0] == 'r')
+          {
+         
+            valdata.setingdataanhxa[i][anhxadem] = "";
+            anhxadem++;
+          
+          }
+           else if(DT6[0] == 'c')
+          {
+         
+            valdata.setingdatacontro[i][j] = "";    
+          
+          }
+        }
         String DT7 = doc2[j]["d"];
         if (valdata.TYPE[i] == 1 || valdata.TYPE[i] == 3 || valdata.TYPE[i] == 4)
         {
@@ -121,6 +140,7 @@ bool setingtimer(String data)
           if (DT6[0] == 't' || DT6[0] == 'd')
           {
             valdata.setingdata[i][timerdem] = DT7;
+            Serial.println(DT7);
             timerdem++;
           }
           if (DT6[0] == 'r')

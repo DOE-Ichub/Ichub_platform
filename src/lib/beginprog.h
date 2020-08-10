@@ -62,9 +62,6 @@ void ngat()
      delay(50);
       digitalWrite(cf.cfled, HIGH);
       setup_wifi();
-      //Serial.println(" WiFi CONNECTING");
-          
-
      
    }
   
