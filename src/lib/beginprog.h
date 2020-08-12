@@ -12,6 +12,13 @@ struct
   String pass;
 
 } wf;
+ #if   defined(ESP8266)
+   int erom = 0;
+   int beginerom = 1000;
+#elif defined(ESP32)
+      int erom = 1000;
+      int beginerom = 1500;
+  #endif
 String useremq = "";
 String pasemq = "";
 String mqtt_serverstr = "";
@@ -48,34 +55,34 @@ void ngat()
       Serial.println("reset esp");
       wf.stwifi = false;
 
-      EEPROM.put(1000, wf);
+      EEPROM.put(erom, wf);
       EEPROM.commit();
       delay(500);
+       #if   defined(ESP8266)
+             WiFi.setAutoConnect(0);
+              #endif
       ESP.restart();
     }
 
     pp = 0;
   }
-   if (wf.stwifi == true)
-   {
-     if(WiFi.status() != WL_CONNECTED)
+}
+void scan()
+{
+    if(WiFi.status() != WL_CONNECTED)
      {
        digitalWrite(cf.cfled, LOW);
      delay(50);
       digitalWrite(cf.cfled, HIGH);
       setup_wifi();
      }
-     
-   }
-  
 }
-
 
 bool wificonf(String sd,String pas)
 {
 
   urlgetmqtt = urlgetmqtt + "/GetInfoServer";
-  EEPROM.begin(1500);
+  EEPROM.begin(beginerom);
   int cnt = 0;
   int i = 0;
   if (sd.length() > 0)
@@ -123,13 +130,15 @@ bool wifismartconf()
 {
 
    urlgetmqtt = urlgetmqtt + "/GetInfoServer";
-  EEPROM.begin(1500);
+  EEPROM.begin(beginerom);
   int cnt = 0;
   int i = 0;
     
-    if (EEPROM.read(1000) == false || EEPROM.read(1000) == true)
+    if (EEPROM.read(erom) == false || EEPROM.read(erom) == true)
     {
-      EEPROM.get(1000, wf);
+      EEPROM.get(erom, wf);
+       Serial.println(wf.ssd);
+       Serial.println(wf.pass);
     }
     else
     {
@@ -197,7 +206,8 @@ bool wifismartconf()
 
     wf.stwifi = true;
 
-    EEPROM.put(1000, wf);
+    EEPROM.put(erom, wf);
+    delay(10);
     EEPROM.commit();
     delay(10);
 

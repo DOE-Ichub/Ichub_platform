@@ -1,9 +1,8 @@
 #include <api.h>
 Connec b;
 mqt s;
-String ssid = "";
-String password = "";
-String AccessKey = ""; // lấy key trên app ichub
+
+String AccessKey = "KIPD68"; // lấy key trên app ichub
 int sensortrig1 = 27;
 int sensorecho1 = 26;
 unsigned long val =0 ; 
@@ -34,7 +33,7 @@ void setup()
 {
   Serial.begin(115200);
   b.configpin(21);
-  b.beginwifi(ssid, password, AccessKey);
+  b.beginsmartconfig(AccessKey,19);
   pinMode(sensortrig1, OUTPUT);
   pinMode(sensorecho1, INPUT);
 }

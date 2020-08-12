@@ -67,10 +67,8 @@ bool wifimqtt(String use, String pas)
   if (!client.connected())
   {
     delay(100);
-    Serial.println("use MQTT");
-
     char bufid[14] = "";
-    variablemqtt.clientId.toCharArray(bufid, variablemqtt.clientId.length() + 1);
+    use.toCharArray(bufid, use.length() + 1);
     char useremqtt[30] = "";
     use.toCharArray(useremqtt, use.length() + 1);
     char pasemqtt[40] = "";
@@ -111,10 +109,8 @@ void callback(char *topic, byte *payload, unsigned int length)
   variablemqtt.sup1.toCharArray(top, variablemqtt.sup1.length() + 1);
 
   char topsup[40] = "";
-  variablemqtt.sup2.toCharArray(topsup, variablemqtt.sup2.length() + 1);
-  Serial.println(topic);
-  Serial.println(me);
-  if (strcmp(topic, top) == 0)
+  variablemqtt.sup2.toCharArray(topsup, variablemqtt.sup2.length() + 1);s
+   if (strcmp(topic, top) == 0)
   {
     String str = datasen(me);
     sent(variablemqtt.pus1, str);

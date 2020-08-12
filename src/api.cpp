@@ -59,8 +59,13 @@ int apipaym(String key, String mac)
         return 99;
       }
       int Status = doc["Status"];
+     
       String dataj = doc["Data"];
-      //Serial.println(dataj);
+      if(dataj!=0)
+      {
+          Serial.println(dataj);
+      }
+        
       DynamicJsonDocument doc2(10000);
       DeserializationError error2 = deserializeJson(doc2, dataj);
       if (error2)
@@ -87,6 +92,7 @@ void loopCallback()
 {
   c.connectToMqtt(mqtt_serverstr, useremq, pasemq);
   c.loopmqt();
+  scan();
   ngat();
   timer.start();
 }
@@ -105,11 +111,12 @@ bool Connec::beginwifi(String ssid, String pass, String key)
   {
     return false;
   }
+   WiFi.printDiag(Serial);
   String mac = macid();
   delay(500);
   while (statusapi != 0)
   {
-     if (mun++ > 3)
+     if (mun++ > 5)
     {
       Serial.println("cant not connect sever");
       return false;
