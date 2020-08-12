@@ -109,17 +109,22 @@ void callback(char *topic, byte *payload, unsigned int length)
   variablemqtt.sup1.toCharArray(top, variablemqtt.sup1.length() + 1);
 
   char topsup[40] = "";
-  variablemqtt.sup2.toCharArray(topsup, variablemqtt.sup2.length() + 1);s
+  variablemqtt.sup2.toCharArray(topsup, variablemqtt.sup2.length() + 1);
    if (strcmp(topic, top) == 0)
   {
+
     String str = datasen(me);
+        if (ramsen != str)
+    {
+      sent(variablemqtt.pus1, ramsen);
+      ramsen = senstr();
+    }
     sent(variablemqtt.pus1, str);
   }
   if (strcmp(topic, topsup) == 0)
   {
 
     setingtimer(me);
-
     sent(variablemqtt.pus2, me);
   }
 }
