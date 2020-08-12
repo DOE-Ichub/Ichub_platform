@@ -61,7 +61,7 @@ int apipaym(String key, String mac)
       int Status = doc["Status"];
      
       String dataj = doc["Data"];
-      if(dataj!=0)
+      if(Status!=0)
       {
           Serial.println(dataj);
       }
