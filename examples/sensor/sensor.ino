@@ -1,7 +1,8 @@
 #include <api.h>
 Connec b;
 mqt s;
-
+String ssid = "DOE";
+String password = "quoc1993";
 String AccessKey = "TKTQ57"; // lấy key trên app ichub
 int sensortrig1 = 27;
 int sensorecho1 = 26;
@@ -32,9 +33,9 @@ String dokhoancach(int trig,int echo)
 void setup()
 {
   Serial.begin(115200);
-   b.configpin(21);
-  b.beginsmartconfig(AccessKey,19);
- pinMode(sensortrig1, OUTPUT);
+  b.configpin(21);
+  b.beginwifi(ssid, password, AccessKey);
+  pinMode(sensortrig1, OUTPUT);
   pinMode(sensorecho1, INPUT);
 }
 void loop()

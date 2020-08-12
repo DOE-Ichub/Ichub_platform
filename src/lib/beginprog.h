@@ -56,12 +56,15 @@ void ngat()
 
     pp = 0;
   }
-   if (WiFi.status() != WL_CONNECTED&&wf.stwifi == true)
+   if (wf.stwifi == true)
    {
-     digitalWrite(cf.cfled, LOW);
+     if(WiFi.status() != WL_CONNECTED)
+     {
+       digitalWrite(cf.cfled, LOW);
      delay(50);
       digitalWrite(cf.cfled, HIGH);
       setup_wifi();
+     }
      
    }
   
@@ -90,6 +93,7 @@ bool wificonf(String sd,String pas)
   WiFi.mode(WIFI_STA);
   if (wf.stwifi)
   {
+    Serial.println("WL_CONNECTING");
     setup_wifi();
     while (WiFi.status() != WL_CONNECTED)
     {
@@ -137,10 +141,11 @@ bool wifismartconf()
   WiFi.mode(WIFI_STA);
   if (wf.stwifi)
   {
+    Serial.println("WL_CONNECTING");
     setup_wifi();
     while (WiFi.status() != WL_CONNECTED)
     {
-
+      
       ngat();
       i++;
       digitalWrite(cf.cfled, HIGH);
