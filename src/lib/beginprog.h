@@ -30,8 +30,12 @@ void setup_wifi()
 {
   String o = "";
   delay(10);
-
-  WiFi.begin((wf.ssd).c_str(), (wf.pass).c_str());
+  char use[40] = "";
+  wf.ssd.toCharArray(use, wf.ssd.length() + 1);
+  char pas[40] = "";
+  wf.pass.toCharArray(pas, wf.pass.length() + 1);
+  WiFi.begin(use, pas);
+ 
 }
 void ngat()
 {

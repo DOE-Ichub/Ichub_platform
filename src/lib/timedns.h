@@ -40,9 +40,8 @@ bool timer(String data, int idnut, int vti, int vtj)
      }
      int gio = timeClient.getHours();
      int phut = timeClient.getMinutes();
-
      int nowtong = gio * 60 * 60 + phut * 60;
-     delay(200);
+     delay(20);
 
      if (datas[3] == 1)
      {

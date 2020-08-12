@@ -256,8 +256,7 @@ void mqt::sensorsent(int idnut, String datain)
         {
           rate = valdata.timereading[i];
         }
-        //Serial.print("valdata.datastaus[i]  :");
-        // Serial.println(valdata.timereading[i]);
+       
         sensoracstion(valdata.datastaus[i], i);
       }
     }
@@ -329,15 +328,16 @@ void mqt::loopmqt()
 {
   String h;
   int idnut = 0;
-  if (timeClient.getSeconds() != phutwet)
+  if (timeClient.getMinutes() != phutwet)
   {
-    phutwet = timeClient.getSeconds();
+    
     for (int i = 0; i < valdata.stbconec; i++)
     {
-      idnut = valdata.ID[i].toInt();
-      if (valdata.TYPE[i] == 1)
-      {
         bool ret = false;
+      idnut = valdata.ID[i].toInt();
+      if (valdata.TYPE[i] == 1 ||valdata.TYPE[i] == 3)
+      {
+      
         for (int j = 0; j < valdata.socaidat; j++)
         {
 
@@ -345,31 +345,17 @@ void mqt::loopmqt()
           if (h.length() == 0)
             break;
           ret = timer(h, idnut, i, j);
-          // Serial.println(h);
+         
         }
         if (ret == true)
         {
           sent(variablemqtt.pus1, senstr());
         }
       }
-      if (valdata.TYPE[i] == 3)
-      {
-        bool ret = false;
-        for (int j = 0; j < valdata.socaidat; j++)
-        {
-          h = valdata.setingdata[i][j];
-          if (h.length() == 0)
-            break;
-          bool ret = timer(h, idnut, i, j);
-        }
-        if (ret == true)
-        {
-          sent(variablemqtt.pus1, senstr());
-        }
-      }
+
     }
+    phutwet = timeClient.getMinutes();
   }
 
   client.loop();
-  delay(5);
 }

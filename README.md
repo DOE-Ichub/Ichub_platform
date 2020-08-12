@@ -62,7 +62,10 @@ Sử dụng mã tương tự ở trên ngoài ra còn khai báo chân xuất tí
 ### `mqt` class
 
 * `int statusid(int id)` - Lấy trạng thái nút .
- 
+
+* `bool pinset(int vtriout,int pinout,String cl)`-Hàm này giúp ánh xạ chân mặt định thành chân mình mong muốn .`vtriout` ị trí output trên app, `pinout` GPIO của  module esp8266 hoặc esp32 cần xuất tín hiệu điều khiển.
+	`cl` "digital" đối với tin hiệu 0 -1 , ,"analog"  đối với tin hiệu PWM 0- 1023 exp: s.pinset(3,12,"digital");
+
 *  `bool Writepin(int id, int stt)` - Điều khiển trạng thái nút onoff digital (0 -1 ), PWM (0-1024). 
 
 * `bool sensorsent(int id, String datain)` - Gửi dữ liệu sensor lên app hiển thị
