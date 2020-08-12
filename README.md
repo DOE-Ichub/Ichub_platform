@@ -51,6 +51,9 @@ Sử dụng mã tương tự ở trên ngoài ra còn khai báo chân xuất tí
    
 
 ### `Connec` class
+
+* ` bool configpin(int GPIO);` - Khai báo chân GPIO làm Pinout Startus trạng thái wifi kết nối .
+
 * `bool beginwifi(String ssid, String pass, String AccessKey)` - Kết nối wifi bằng pass cố định 
 
 * `bool beginsmartconfig(String AccessKey,int cfnut)` - kết nối bằng smartconfig ( Cfnut GPIO đọc phím nhấn để kích hoạt chế độ smartconfig).
@@ -67,6 +70,7 @@ Sử dụng mã tương tự ở trên ngoài ra còn khai báo chân xuất tí
 * `String dataget(int idnut)` - Lấy dự liệu setting nút.
 
 * `String sensorget(int idnut)` - Lấy dữ liệu setting sensor
+
 * `bool timeoutmqtt()` - chạy mqtt.
 
 # SƠ ĐỒ CHÂN OUTPUT
