@@ -140,7 +140,7 @@ bool setingtimer(String data)
           if (DT6[0] == 't' || DT6[0] == 'd')
           {
             valdata.setingdata[i][timerdem] = DT7;
-            Serial.println(DT7);
+            
             timerdem++;
           }
           if (DT6[0] == 'r')

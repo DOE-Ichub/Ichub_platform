@@ -8,13 +8,14 @@ struct
 struct
 {
   bool stwifi;
-  String ssd;
-  String pass;
+  char ssd[32];
+  char pass[62];
 
-} wf;
+}wf;
+
  #if   defined(ESP8266)
-   int erom = 0;
-   int beginerom = 1000;
+   int erom = 1000;
+   int beginerom = 1500;
 #elif defined(ESP32)
       int erom = 1000;
       int beginerom = 1500;
@@ -30,11 +31,7 @@ void setup_wifi()
 {
   String o = "";
   delay(10);
-  char use[40] = "";
-  wf.ssd.toCharArray(use, wf.ssd.length() + 1);
-  char pas[40] = "";
-  wf.pass.toCharArray(pas, wf.pass.length() + 1);
-  WiFi.begin(use, pas);
+  WiFi.begin(wf.ssd, wf.pass);
  
 }
 void ngat()
@@ -57,9 +54,10 @@ void ngat()
     if (pp >= 15)
     {
       Serial.println("reset esp");
-      wf.stwifi = false;
-
-      EEPROM.put(erom, wf);
+      for(int i = erom; i <= (erom+sizeof(wf)) ; i++)
+      {
+          EEPROM.write (i,0);
+      }
       EEPROM.commit();
       delay(500);
        #if   defined(ESP8266)
@@ -92,8 +90,8 @@ bool wificonf(String sd,String pas)
   if (sd.length() > 0)
   {
     cf.cfst = false;
-    wf.ssd = sd;
-    wf.pass = pas;
+     sd.toCharArray(wf.ssd, sd.length() + 1);
+    pas.toCharArray( wf.pass,pas.length() + 1);
     wf.stwifi = true;
   }
   else
@@ -102,9 +100,11 @@ bool wificonf(String sd,String pas)
   }
 
   WiFi.mode(WIFI_STA);
+  
   if (wf.stwifi)
   {
     Serial.println("WL_CONNECTING");
+   
     setup_wifi();
     while (WiFi.status() != WL_CONNECTED)
     {
@@ -123,6 +123,7 @@ bool wificonf(String sd,String pas)
         i = 0;
         delay(1000);
       }
+      
     }
     digitalWrite(cf.cfled, HIGH);
     delay(500);
@@ -146,8 +147,6 @@ bool wifismartconf()
     }
     else
     {
-      wf.ssd = "";
-      wf.pass = "";
       wf.stwifi = false;
     }
      
@@ -155,6 +154,7 @@ bool wifismartconf()
   if (wf.stwifi)
   {
     Serial.println("WL_CONNECTING");
+     Serial.println(sizeof (wf));
     setup_wifi();
     while (WiFi.status() != WL_CONNECTED)
     {
@@ -205,9 +205,11 @@ bool wifismartconf()
 
     delay(50);
 
-    wf.ssd = WiFi.SSID();
-    wf.pass = WiFi.psk();
+    String ssdwf = WiFi.SSID();
+    String passwf = WiFi.psk();
+  ssdwf.toCharArray(wf.ssd, ssdwf.length() + 1);
 
+  passwf.toCharArray( wf.pass,passwf.length() + 1);
     wf.stwifi = true;
 
     EEPROM.put(erom, wf);
