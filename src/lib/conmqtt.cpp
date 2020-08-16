@@ -119,7 +119,7 @@ void callback(char *topic, byte *payload, unsigned int length)
       sent(variablemqtt.pus1, ramsen);
       ramsen = senstr();
     }
-    sent(variablemqtt.pus1, str);
+   
   }
   if (strcmp(topic, topsup) == 0)
   {
