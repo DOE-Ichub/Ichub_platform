@@ -16,6 +16,8 @@ String statusmac(String AccessKey, String mac)
     
   }
   D = "={\"AccessKey\":\"" + AccessKey + "\",\"Mac\":\"" + mac + "\"}";
+  delay(5);
+ 
   return D;
 }
 int apipaym(String key, String mac)
@@ -26,7 +28,9 @@ int apipaym(String key, String mac)
   {
   }
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-  int kiemtraloi2 = http.POST(statusmac(key, mac));
+  String hh = statusmac(key, mac);
+
+  int kiemtraloi2 = http.POST(hh);
 
   int demapi = 0;
   while (kiemtraloi2 < 0)
@@ -126,7 +130,7 @@ bool Connec::beginwifi(String ssid, String pass, String key)
 
   }
   c.beginsever(mqtt_serverstr, m, key, mac);
-  Serial.println("connected sever");
+  Serial.println("connecting sever");
   timer.setTimeout(100);
   timer.setCallback(loopCallback);
   timer.start();
@@ -152,7 +156,7 @@ bool Connec::beginsmartconfig(String key,int nutcf)
    
   }
   c.beginsever(mqtt_serverstr, m, key, mac);
-  Serial.println("connected sever");
+  Serial.println("connecting sever");
   timer.setTimeout(100);
   timer.setCallback(loopCallback);
   timer.start();

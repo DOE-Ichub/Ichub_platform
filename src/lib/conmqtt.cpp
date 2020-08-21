@@ -74,7 +74,7 @@ bool wifimqtt(String use, String pas)
     char pasemqtt[40] = "";
     pas.toCharArray(pasemqtt, pas.length() + 1);
     //Serial.println(useremqtt);
-    Serial.println("Connecting MQTT");
+
     if (client.connect(bufid, useremqtt, pasemqtt))
     {
       char topsup[40] = "";
@@ -85,7 +85,8 @@ bool wifimqtt(String use, String pas)
       client.subscribe(topsup2);
       beginntp();
       Serial.println(" CONNECTED MQTT");
-      delay(500);
+      valdata.sttmqtt = true;
+      delay(50);
       return true;
     }
     else
@@ -110,16 +111,16 @@ void callback(char *topic, byte *payload, unsigned int length)
 
   char topsup[40] = "";
   variablemqtt.sup2.toCharArray(topsup, variablemqtt.sup2.length() + 1);
-   if (strcmp(topic, top) == 0)
+
+  if (strcmp(topic, top) == 0)
   {
 
     String str = datasen(me);
-        if (ramsen != str)
+    if (ramsen != str)
     {
-      sent(variablemqtt.pus1, ramsen);
-      ramsen = senstr();
+      ramsen = str;
     }
-   
+    sent(variablemqtt.pus1, str);
   }
   if (strcmp(topic, topsup) == 0)
   {
@@ -182,13 +183,16 @@ bool mqt::connectToMqtt(String url, String use, String pas)
     {
       Serial.println(" NOT CONNECTED MQTT");
       wifisever(url, use, pas);
+      valdata.sttmqtt = false;
     }
     else
     {
+      valdata.sttmqtt = true;
     }
   }
   else
   {
+    valdata.sttmqtt = false;
   }
 }
 void sensoracstion(int data, int iddv)
@@ -242,30 +246,34 @@ void mqt::sensorsent(int idnut, String datain)
 {
 
   bool ret = false;
-  if (((unsigned long)(millis() - wet1)) > rate)
-
+  if (valdata.sttmqtt == true)
   {
     for (int i = 0; i < valdata.stbconec; i++)
     {
 
       if (valdata.TYPE[i] == 2 && (idnut / 378) == valdata.ID[i].toInt())
       {
-        valdata.datastaus[i] = datain.toInt();
-       
         if (valdata.timereading[i] != 0)
         {
           rate = valdata.timereading[i];
         }
-       
-        sensoracstion(valdata.datastaus[i], i);
+
+        if ((unsigned long)(millis() - wet1[i]) > rate)
+
+        {
+
+          valdata.datastaus[i] = datain.toDouble();
+          sensoracstion(valdata.datastaus[i], i);
+
+          if (ramsen != senstr())
+          {
+            sent(variablemqtt.pus1, ramsen);
+            ramsen = senstr();
+          }
+          wet1[i] = millis();
+        }
       }
     }
-    if (ramsen != senstr())
-    {
-      sent(variablemqtt.pus1, ramsen);
-      ramsen = senstr();
-    }
-    wet1 = millis();
   }
 }
 String mqt::sensorget(int idnut)
@@ -330,14 +338,14 @@ void mqt::loopmqt()
   int idnut = 0;
   if (timeClient.getMinutes() != phutwet)
   {
-    
+
     for (int i = 0; i < valdata.stbconec; i++)
     {
-        bool ret = false;
+      bool ret = false;
       idnut = valdata.ID[i].toInt();
-      if (valdata.TYPE[i] == 1 ||valdata.TYPE[i] == 3)
+      if (valdata.TYPE[i] == 1 || valdata.TYPE[i] == 3)
       {
-      
+
         for (int j = 0; j < valdata.socaidat; j++)
         {
 
@@ -345,14 +353,12 @@ void mqt::loopmqt()
           if (h.length() == 0)
             break;
           ret = timer(h, idnut, i, j);
-         
         }
         if (ret == true)
         {
           sent(variablemqtt.pus1, senstr());
         }
       }
-
     }
     phutwet = timeClient.getMinutes();
   }

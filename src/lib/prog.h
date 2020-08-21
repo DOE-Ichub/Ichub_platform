@@ -1,7 +1,6 @@
 #include "srcv/ArduinoJson.h"
 
 
-
 String senstr()
 {
   String str = "[";
@@ -10,8 +9,11 @@ String senstr()
     if (i > 0)
       str += ',';
     str += "{\"type\":" + String(valdata.TYPE[i]) + ",\"id\":" + valdata.ID[i] + ",\"mac\":\"12345\",\"data\":" + valdata.datastaus[i] + "}";
+
+  
   }
   str += "]";
+   
   return str;
 }
 
@@ -53,6 +55,26 @@ String datasen(String datain)
     int DT3 = doc["dulieu"]["data"];
 
     onoff(DT3, DT2.toInt());
+
+    break;
+  }
+  case 's':
+  {
+
+    int datas = doc["dulieu"]["data"];
+    int id = doc["dulieu"]["id"];
+
+      for (int i = 0; i < valdata.stbconec; i++)
+       {
+         if(id  == valdata.ID[i].toInt())
+         {
+           valdata.datastaus[i] = datas ; 
+           // String str = datasen(me);
+            //sent(variablemqtt.pus1, ramsen);
+         }
+       }
+
+    
 
     break;
   }

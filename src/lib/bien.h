@@ -15,8 +15,9 @@ struct
 
 } outputpin;
 #endif
-unsigned long wet, wet1, wet2 = 0;
-int rate = 100;
+unsigned long wet, wet2 = 0;
+unsigned long wet1[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+int rate = 900;
 int phutwet = 0;
 String ramsen = "";
 struct
@@ -29,12 +30,27 @@ struct
 } variablemqtt;
 struct
 {
+  int eromst = 1100; 
+} addeerrom;
+
+struct
+{
+  
+  bool eromkeyst = true;
+  char id[10][10];
+  int stVar[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+} variableerromst;
+
+struct
+{
   bool stt = false;
+  bool sttmqtt = false;
   String ID[10];
   String VT[10];
   int TYPE[10];
   String UNIT[10];
-  int datastaus[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+  double datastaus[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+  
   int datastausVal[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
   int datasid[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
   int stbconec = 0;

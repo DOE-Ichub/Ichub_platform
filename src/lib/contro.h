@@ -18,7 +18,7 @@ void updatestaus(int datain, int id)
       }
     }
 }
-bool traingcontro(String data, int sensor,int iddv)
+bool traingcontro(String data, double sensor,int iddv)
 {
      int datas[5];
      String ds;
@@ -56,7 +56,7 @@ bool traingcontro(String data, int sensor,int iddv)
 
                if (datasen == sensor)
                {    
-                    //Serial.println(lisdata[2].toInt());
+                    
                     updatestaus(staus, lisdata[2].toInt());
                     return true;
                }
@@ -67,7 +67,7 @@ bool traingcontro(String data, int sensor,int iddv)
 
                if (sensor > datasen)
                {
-                    //Serial.println(lisdata[2].toInt());
+                    
                     updatestaus(staus, lisdata[2].toInt());
 
                     return true;
@@ -79,7 +79,7 @@ bool traingcontro(String data, int sensor,int iddv)
 
                if (sensor < datasen)
                {
-                    //Serial.println(lisdata[2].toInt());
+                   
                    updatestaus(staus, lisdata[2].toInt());
                     return true;
                }
