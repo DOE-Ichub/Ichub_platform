@@ -32,8 +32,7 @@ String dokhoancach(int trig,int echo)
 void setup()
 {
   Serial.begin(115200);
-  b.configpin(21);
-  b.beginsmartconfig(AccessKey,19);
+  b.beginsmartconfig(AccessKey,0);
   pinMode(sensortrig1, OUTPUT);
   pinMode(sensorecho1, INPUT);
 }
