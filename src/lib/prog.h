@@ -1,6 +1,43 @@
 #include "srcv/ArduinoJson.h"
 
+bool sent(String topic, String me)
+{
+  char tops[40] = "";
+  topic.toCharArray(tops, topic.length() + 1);
+  delay(50);
+  char sen[1000] = "";
+  me.toCharArray(sen, me.length() + 1);
+  
+  client.publish(tops, sen);
+}
+bool onoff(int dataof, int idnut)
+{
+  
+  bool stt = false;
+  for (int i = 0; i < valdata.stbconec; i++)
+  {
+    if (valdata.ID[i].toInt() == idnut)
+    {
 
+      stt = deriver(dataof, i, idnut);
+      String data;
+      for (int j = 0; j < valdata.socaidat; j++)
+      {
+        data = valdata.setingdataanhxa[i][j];
+        if (data.length() == 0)
+          break;
+        stt = anhxa(data, dataof);
+      }
+       if(valdata.sqlid[i]==true &&valdata.datasidsent[i]!= dataof|| valdata.Notif[i]==true&&valdata.datasidsent[i]!= dataof)
+            {
+               sent((variablemqtt.pussql+String(idnut)),String(dataof));
+               valdata.datasidsent[i]= dataof;
+            }
+    }
+  }
+ 
+  return stt;
+}
 String senstr()
 {
   String str = "[";
@@ -8,7 +45,7 @@ String senstr()
   {
     if (i > 0)
       str += ',';
-    str += "{\"type\":" + String(valdata.TYPE[i]) + ",\"id\":" + valdata.ID[i] + ",\"mac\":\"12345\",\"data\":" + valdata.datastaus[i] + "}";
+    str += "{\"type\":" + String(valdata.TYPE[i]) + ",\"id\":" + valdata.ID[i] + ",\"mac\":\"12345\",\"data\":" + valdata.datastaus[i] +  "}";
 
   
   }
@@ -35,8 +72,9 @@ String datasen(String datain)
   {
 
     int DT3 = doc["dulieu"]["s"];
-
+    
     onoff(DT3, DT2.toInt());
+    
 
     break;
   }
@@ -44,18 +82,18 @@ String datasen(String datain)
   {
 
     int DT3 = doc["dulieu"]["data"];
-
+    
     onoff(DT3, DT2.toInt());
-
+    //sent(variablemqtt.pussql+DT2,String(DT3));
     break;
   }
   case 't':
   {
 
     int DT3 = doc["dulieu"]["data"];
-
+   
     onoff(DT3, DT2.toInt());
-
+    //sent(variablemqtt.pussql+DT2,String(DT3));
     break;
   }
   case 's':
@@ -203,6 +241,9 @@ int onoffstring(String datain)
     String DT3 = doc[i]["VT"];
     String DT4 = doc[i]["Unit"];
     String DT5 = doc[i]["Setting"];
+
+     valdata.sqlid[i] = doc[i]["SaveData"];
+     valdata.Notif[i] = doc[i]["Notifications"];
     if (DT2 == 1 || DT2 == 3 || DT2 == 4)
     {
 

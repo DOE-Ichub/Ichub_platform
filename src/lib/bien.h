@@ -15,8 +15,9 @@ struct
 
 } outputpin;
 #endif
-unsigned long wet, wet2 = 0;
+unsigned long wet =  0;
 unsigned long wet1[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+unsigned long wet2[2] = {0, 0};
 int rate = 900;
 int phutwet = 0;
 String ramsen = "";
@@ -27,6 +28,7 @@ struct
   String pus1 = "";
   String pus2 = "";
   String clientId = "";
+  String pussql = "datalog/";
 } variablemqtt;
 struct
 {
@@ -53,6 +55,9 @@ struct
   
   int datastausVal[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
   int datasid[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+  bool sqlid[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+  double datasidsent[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
+  bool Notif[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
   int stbconec = 0;
   int timereading[10] = {0, 0, 0, 0, 0};
   //String stringdata[10];

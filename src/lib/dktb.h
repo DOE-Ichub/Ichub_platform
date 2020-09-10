@@ -294,24 +294,3 @@ bool anhxa(String data, int dataof)
   }
   return stt;
 }
-bool onoff(int dataof, int idnut)
-{
-  bool stt = false;
-  for (int i = 0; i < valdata.stbconec; i++)
-  {
-    if (valdata.ID[i].toInt() == idnut)
-    {
-
-      stt = deriver(dataof, i, idnut);
-      String data;
-      for (int j = 0; j < valdata.socaidat; j++)
-      {
-        data = valdata.setingdataanhxa[i][j];
-        if (data.length() == 0)
-          break;
-        stt = anhxa(data, dataof);
-      }
-    }
-  }
-  return stt;
-}

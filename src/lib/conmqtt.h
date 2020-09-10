@@ -15,6 +15,7 @@ public:
   bool pinset(int vtriout,int pinout,String cl);
   String dataget(int idnut);
   String sensorget(int idnut);
+  bool saveid(int idnut,bool save);
   int statusid(int idnut);
 
 private:

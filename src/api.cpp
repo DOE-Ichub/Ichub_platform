@@ -16,7 +16,7 @@ String statusmac(String AccessKey, String mac)
     
   }
   D = "={\"AccessKey\":\"" + AccessKey + "\",\"Mac\":\"" + mac + "\"}";
-  delay(5);
+  delay(100);
  
   return D;
 }
@@ -55,6 +55,7 @@ int apipaym(String key, String mac)
     if (kiemtraloi2 == HTTP_CODE_OK)
     {
       String laydulieu = http.getString();
+      
       DynamicJsonDocument doc(10000);
       DeserializationError error = deserializeJson(doc, laydulieu);
       if (error)
@@ -127,7 +128,6 @@ bool Connec::beginwifi(String ssid, String pass, String key)
     }
     statusapi = apipaym(key, mac);
     delay(1000);
-
   }
   c.beginsever(mqtt_serverstr, m, key, mac);
   Serial.println("connecting sever");

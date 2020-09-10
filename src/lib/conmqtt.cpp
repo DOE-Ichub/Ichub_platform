@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "srcv/PubSubClient.h"
 #include "conmqtt.h"
 #include "bien.h"
 #if ESP8266
@@ -9,14 +10,14 @@
 #include "srcv/analogWrite.h"
 #include "dktb.h"
 #endif
-
+WiFiClient espClient;
+PubSubClient client(espClient);
 #include "prog.h"
 #include "contro.h"
 #include "dtaget.h"
-#include "srcv/PubSubClient.h"
+
 #include "timedns.h"
-WiFiClient espClient;
-PubSubClient client(espClient);
+
 
 bool mqt::pinset(int vtriout, int pinout, String cl)
 {
@@ -52,14 +53,20 @@ int mqt::statusid(int idnut)
     }
   }
 }
-bool sent(String topic, String me)
+bool mqt::saveid(int idnut,bool save)
 {
-  char tops[40] = "";
-  topic.toCharArray(tops, topic.length() + 1);
-  delay(50);
-  char sen[1000] = "";
-  me.toCharArray(sen, me.length() + 1);
-  client.publish(tops, sen);
+  bool sttid = false;
+  for (int i = 0; i < valdata.stbconec; i++)
+  {
+
+    if ((idnut / 378) == valdata.ID[i].toInt())
+    {
+      valdata.sqlid[i] = save;
+        sttid = true;
+      return sttid;
+    }
+  }
+  return sttid;
 }
 
 bool wifimqtt(String use, String pas)
@@ -137,9 +144,9 @@ void wifisever(String url, String use, String pas)
   char pasemqtt[20] = "";
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-  delay(500);
+  delay(100);
   wifimqtt(use, pas);
-  delay(3000);
+  
 }
 void mqt::beginsever(String url, String m, String k, String mac)
 {
@@ -156,7 +163,7 @@ void mqt::beginsever(String url, String m, String k, String mac)
   client.setCallback(callback);
   onoffstring(m);
   beginpinrelay();
-  delay(500);
+  delay(100);
 }
 void beginwifi()
 {
@@ -195,6 +202,27 @@ bool mqt::connectToMqtt(String url, String use, String pas)
     valdata.sttmqtt = false;
   }
 }
+bool mqt::Writepin(int id, int stt)
+{
+  bool kt = false;
+
+  if (((unsigned long)(millis() - wet2[0])) > 500)
+
+  {
+    for (int i = 0; i < valdata.stbconec; i++)
+    {
+
+      if ((id / 378) == valdata.ID[i].toInt())
+      {
+        kt = onoff(stt, id / 378);
+        sent(variablemqtt.pus1, senstr());
+        return kt;
+      }
+    }
+    wet2[0] = millis();
+  }
+  return kt;
+}
 void sensoracstion(int data, int iddv)
 {
 
@@ -209,7 +237,7 @@ void sensoracstion(int data, int iddv)
       hctr = valdata.setingdatacontro[iddv][j];
       if (hctr.length() == 0)
         break;
-      ret = traingcontro(hctr, data, iddv);
+      traingcontro(hctr, data, iddv);
     }
     for (int i = 0; i < valdata.stbconec; i++)
     {
@@ -217,31 +245,18 @@ void sensoracstion(int data, int iddv)
       {
         valdata.datastaus[i] = valdata.datastausVal[i];
         onoff(valdata.datastausVal[i], valdata.ID[i].toInt());
+        ret = true;
       }
     }
+         if (ret == true)
+          {
+            
+            sent(variablemqtt.pus1, ramsen);
+            ramsen = senstr();
+          }
   }
 }
-bool mqt::Writepin(int id, int stt)
-{
-  bool kt = false;
 
-  if (((unsigned long)(millis() - wet2)) > 200)
-
-  {
-    for (int i = 0; i < valdata.stbconec; i++)
-    {
-
-      if ((id / 378) == valdata.ID[i].toInt())
-      {
-        kt = onoff(stt, id / 378);
-        sent(variablemqtt.pus1, senstr());
-        return kt;
-      }
-    }
-    wet2 = millis();
-  }
-  return kt;
-}
 void mqt::sensorsent(int idnut, String datain)
 {
 
@@ -257,17 +272,26 @@ void mqt::sensorsent(int idnut, String datain)
         {
           rate = valdata.timereading[i];
         }
+         if (((unsigned long)(millis() - wet2[1])) > 400)
 
+          {
+           valdata.datastaus[i] = datain.toDouble();
+          sensoracstion(valdata.datastaus[i], i);
+           wet2[1] = millis();
+          }
         if ((unsigned long)(millis() - wet1[i]) > rate)
 
         {
 
-          valdata.datastaus[i] = datain.toDouble();
-          sensoracstion(valdata.datastaus[i], i);
-
           if (ramsen != senstr())
           {
             sent(variablemqtt.pus1, ramsen);
+            if(valdata.sqlid[i]==true &&valdata.datasidsent[i]!= valdata.datastaus[i]|| valdata.Notif[i]==true&&valdata.datasidsent[i]!= valdata.datastaus[i])
+            {
+              sent((variablemqtt.pussql+valdata.ID[i]),datain);
+              valdata.datasidsent[i]= valdata.datastaus[i];
+            }
+           
             ramsen = senstr();
           }
           wet1[i] = millis();
@@ -276,6 +300,9 @@ void mqt::sensorsent(int idnut, String datain)
     }
   }
 }
+
+
+
 String mqt::sensorget(int idnut)
 {
   String hctr = "[";
@@ -356,6 +383,7 @@ void mqt::loopmqt()
         }
         if (ret == true)
         {
+         
           sent(variablemqtt.pus1, senstr());
         }
       }
