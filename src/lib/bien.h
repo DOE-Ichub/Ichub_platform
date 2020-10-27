@@ -18,6 +18,7 @@ struct
 unsigned long wet =  0;
 unsigned long wet1[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
 unsigned long wet2[2] = {0, 0};
+unsigned long wet3[10] = {0, 0, 0, 0, 0,0,0, 0, 0, 0};
 int rate = 900;
 int phutwet = 0;
 String ramsen = "";
@@ -27,6 +28,7 @@ struct
   String sup2 = "";
   String pus1 = "";
   String pus2 = "";
+  String pus3 = "";
   String clientId = "";
   String pussql = "datalog/";
 } variablemqtt;

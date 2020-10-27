@@ -17,6 +17,9 @@ public:
   String sensorget(int idnut);
   bool saveid(int idnut,bool save);
   int statusid(int idnut);
+  bool sentnotifi(String notification);
+  void scanss();
+
 
 private:
   String key = "";

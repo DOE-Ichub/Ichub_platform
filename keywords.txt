@@ -1,5 +1,5 @@
 #######################################
-# Data types (KEYWORD1)
+# Datatypes (KEYWORD1)
 #######################################
 Connec	KEYWORD1
 mqt	KEYWORD1
@@ -16,6 +16,9 @@ beginsmartconfig	KEYWORD2
 configpin	 KEYWORD2
 sensorget	KEYWORD2
 dataget	KEYWORD2
+sentnotifi KEYWORD2
+pinset	KEYWORD2
+sensorsent	KEYWORD2
 #######################################
 # Literals (LITERAL1)
 #######################################

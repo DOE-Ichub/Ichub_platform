@@ -4,7 +4,7 @@ bool sent(String topic, String me)
 {
   char tops[40] = "";
   topic.toCharArray(tops, topic.length() + 1);
-  delay(50);
+  delay(10);
   char sen[1000] = "";
   me.toCharArray(sen, me.length() + 1);
   

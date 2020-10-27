@@ -80,8 +80,6 @@ bool wifimqtt(String use, String pas)
     use.toCharArray(useremqtt, use.length() + 1);
     char pasemqtt[40] = "";
     pas.toCharArray(pasemqtt, pas.length() + 1);
-    //Serial.println(useremqtt);
-
     if (client.connect(bufid, useremqtt, pasemqtt))
     {
       char topsup[40] = "";
@@ -156,6 +154,7 @@ void mqt::beginsever(String url, String m, String k, String mac)
   variablemqtt.sup2 = k + "/updateapp";
   variablemqtt.pus1 = k + "/device";
   variablemqtt.pus2 = "updatedevice/" + k;
+  variablemqtt.pus3 = "notification/" + k;
   char mqtt_server[30] = "";
   url.toCharArray(mqtt_server, url.length() + 1);
   char pasemqtt[20] = "";
@@ -223,6 +222,17 @@ bool mqt::Writepin(int id, int stt)
   }
   return kt;
 }
+bool mqt::sentnotifi(String notification)
+{
+     if (((unsigned long)(millis() - wet2[2])) > 10000)
+          {
+
+            sent(variablemqtt.pus3, notification);
+            wet2[2] = millis();
+            return true;
+          }
+     return false;     
+}
 void sensoracstion(int data, int iddv)
 {
 
@@ -246,6 +256,7 @@ void sensoracstion(int data, int iddv)
         valdata.datastaus[i] = valdata.datastausVal[i];
         onoff(valdata.datastausVal[i], valdata.ID[i].toInt());
         ret = true;
+          break;
       }
     }
          if (ret == true)
@@ -272,15 +283,14 @@ void mqt::sensorsent(int idnut, String datain)
         {
           rate = valdata.timereading[i];
         }
-         if (((unsigned long)(millis() - wet2[1])) > 400)
-
+          valdata.datastaus[i] = datain.toDouble();
+         if (((unsigned long)(millis() - wet2[1])) > 500)
           {
-           valdata.datastaus[i] = datain.toDouble();
+         
           sensoracstion(valdata.datastaus[i], i);
            wet2[1] = millis();
           }
         if ((unsigned long)(millis() - wet1[i]) > rate)
-
         {
 
           if (ramsen != senstr())
@@ -290,12 +300,12 @@ void mqt::sensorsent(int idnut, String datain)
             {
               sent((variablemqtt.pussql+valdata.ID[i]),datain);
               valdata.datasidsent[i]= valdata.datastaus[i];
-            }
-           
+            }          
             ramsen = senstr();
           }
           wet1[i] = millis();
         }
+        break;
       }
     }
   }
